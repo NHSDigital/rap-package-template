@@ -99,7 +99,7 @@ Note that we never store passwords or any sensitive credentials in the repo to p
 <br/><br/>
 
 # Adapting the package
-You can adapt the package to meet your own needs. The most obvious change would be to change the directory name and the name of the place where the code is kept. For example, if you were producing the [national diabetes audit (NDA)](https://github.com/NHSDigital/national-diabetes-audit) you might change the repo to look like this:
+You can adapt the package to meet your own needs. The most obvious change would be to change the directory name and the name of the place where the code is kept. For example, if you were producing the [National Diabetes Audit (NDA)](https://github.com/NHSDigital/national-diabetes-audit) you might change the repo to look like this:
 ```
 national-diabetes-audit
 │   README.md
