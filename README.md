@@ -17,7 +17,7 @@ You can learn all about packages and why they are useful in the community-of-pra
 # Getting Started
 
 ## Clone repository
-To clone repository, please see our [community of practice page](https://github.com/NHSDigital/rap-community-of-practice/blob/main/development-approach/02_using-git-collaboratively.md).
+To clone the repository, please see our [community of practice page](https://github.com/NHSDigital/rap-community-of-practice/blob/main/development-approach/02_using-git-collaboratively.md).
 
 ## Set up environment
 There are two options to set up the python enviroment:
