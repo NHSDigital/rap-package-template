@@ -1,6 +1,0 @@
-# The libraries used by your code should be listed here
-# See https://github.com/NHSDigital/rap-community-of-practice/blob/main/python/project-structure-and-packaging.md
-
--e .
-
-ipykernel

@@ -1,18 +1,16 @@
-***Warning - this repository is a snapshot of a repository internal to NHS Digital. This means that links to videos and some URLs may not work.***
+***Repository owner: [Craig R Shenton](https://github.com/craig-shenton)***
 
-***Repository owner: [NHS Digital Analytical Services](https://github.com/NHSDigital/data-analytics-services)***
+***Email: craig.shenton@nhs.net***
 
-***Email: datascience@nhs.net***
+***To contact me raise an issue on Github or via email and I will respond promptly.***
 
-***To contact us raise an issue on Github or via email and will respond promptly.***
+# rapr-package-template
 
-# rap-package-template
-
-A python package template that can be adapted for RAP projects.
+An R/Quarto package template that can be adapted for RAP projects.
 
 
 # What is a package?
-You can learn all about packages and why they are useful in the community-of-practice [project structure and packaging](https://nhsdigital.github.io/rap-community-of-practice/training_resources/python/project-structure-and-packaging/) guide.
+You can learn all about packages and why they are useful in the community-of-practice [project structure and packaging](https://nhsdigital.github.io/rap-community-of-practice/training_resources/python/project-structure-and-packaging/) guide (*note:* this for python projects).
 
 # Getting Started
 
@@ -20,40 +18,53 @@ You can learn all about packages and why they are useful in the community-of-pra
 To clone the repository, please see our [community of practice page](https://nhsdigital.github.io/rap-community-of-practice/training_resources/git/using-git-collaboratively/).
 
 ## Set up environment
-There are two options to set up the python enviroment:
-1. Pip using `requirements.txt`.
-2. Conda using `environment.yml`.
+Set up an R virtual environment using `{renv}`:
 
-Users would need to delete as appropriate which set they do not need. For details, please see our [virtual environments in the community of practice page](https://nhsdigital.github.io/rap-community-of-practice/training_resources/python/virtual-environments/why-use-virtual-environments/).
+1. Use `init()` to initialise a project. `renv` will discover the `R` packages used in your project, and install those packages into a private project library.
 
-
-### Option 1: To run pip
-Run the following command in Terminal or VScode to set up the package:
-```
-    python setup.py install
-    pip install -e .
-    pip install -r requirements.txt
+```bash
+install.packages("renv")
+renv::init()
 ```
 
-### Option 2: To run conda
-Use Anaconda Prompt for the following steps:
+2. Work in your project as usual, installing and upgrading `R` packages as required as your project evolves. Use `snapshot()` to save the state of your project library. The project state will be serialised into a file called `renv.lock`.
 
-1. Create the environment from the `environment.yml` file:
-```
-    conda env create -f environment.yml
+```bash
+renv::snapshot()
 ```
 
-The first line of the `.yml` file sets the new environment's name. In this template, the name is `rap`.
+Your `renv.lock` file should look something like this:
+```lock
+{
+  "R": {
+    "Version": "4.2.2",
+    "Repositories": [
+      {
+        "Name": "CRAN",
+        "URL": "https://cran.rstudio.com"
+      }
+    ]
+  },
+  "Packages": {
+    "renv": {
+      "Package": "renv",
+      "Version": "0.16.0",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "c9e8442ab69bc21c9697ecf856c1e6c7",
+      "Requirements": []
+    }
+  }
+}
+```
 
-2. Activate the new environment: 
-```
-    conda activate rap
+3. Use `restore()` to restore your project library from the state of your previously-created lockfile renv.lock.
+    
+```bash
+renv::init()
 ```
 
-3. Verify that the new environment was installed correctly:
-```
-   conda env list
-```
+For details, please see our [virtual environments in the community of practice page](https://nhsdigital.github.io/rap-community-of-practice/training_resources/python/virtual-environments/why-use-virtual-environments/) (*note:* this for python projects).
 
 # Package structure:
 ```
@@ -61,13 +72,15 @@ rap-package-template
 │   README.md
 │
 ├───my_project
-│   │   create_publication.py
-│   │   params.py
+|   |   _targets.R <!-- run from utilities? -->
+│   │   create_report.R
+│   │   params.R
+|   |   report_template.qmd
 │   │
 │   └───utilities
-│       │   data_connections.py
-│       │   field_definitions.py
-│       │   processing_steps.py
+│       │   data_connections.R
+│       │   field_definitions.R
+│       │   processing_steps.R
 |
 ├───reports
 │   │
@@ -76,12 +89,12 @@ rap-package-template
 │
 └───tests
     ├───unittests
-    │       │   test_data_connections.py
-    │       │   test_field_definitions.py
-    │       │   test_processing_steps.py
+    │       │   test_data_connections.R
+    │       │   test_field_definitions.R
+    │       │   test_processing_steps.R
     │
     └───backtests
-            test_compare_outputs.py
+            test_compare_outputs.R
 ```
 Some things to notice about this structure:
 
@@ -117,7 +130,7 @@ smoking-drinking-drugs
 │   │   create_publication.py
 │   │   params.py
 ```
-The [python package exercises](package_exercises.md) page list some steps you can follow to try adapting this package. 
+The [R package exercises](package_exercises.md) page list some steps you can follow to try adapting this package. 
 
 # Link to your publication [To be modified by the user]
 You should include a link to where your publication is published so people can easily see the outputs. Conversely, you should add a link in your publication to this repo's address on the public facing github.

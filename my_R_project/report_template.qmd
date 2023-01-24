@@ -1,0 +1,189 @@
+---
+title: "A&E Attendance Report"
+date: "`r Sys.Date()`"
+author: Craig R Shenton
+date-format: "D MMMM YYYY"
+format:
+  html:
+    # Table of Contents options
+    toc: true
+    toc-depth: 3
+    toc-location: left
+    toc-title: Contents
+    number-sections: false
+    number-depth: 3
+    # Render options
+    theme: cosmo
+    css: styles.css
+    anchor-sections: false
+    html-math-method: katex
+    # Code options
+    code-tools:
+      source: false
+      toggle: false
+      caption: none
+    # code-fold: false
+    # code-summary: "Show code"
+    embed-resources: true
+    standalone: true
+    # URL options
+    link-external-icon: true
+    link-external-newwindow: true
+    # References
+    citations-hover: true
+    footnotes-hover: true
+    callout-appearance: simple
+    callout-collapse: true
+    cap-location: bottom
+    title-block-banner: '#005EB8'
+    backgroundcolor: '#f0f4f5'
+    mainfont: 'Open Sans'
+execute:
+  echo: false
+crossref:
+  fig-title: '**Figure**'
+  fig-labels: arabic
+#execute: 
+#  echo: false
+---
+
+```{r load library}
+#| include: false
+
+# Load libs and global vars
+# -------------------------------------------------------------------------
+suppressPackageStartupMessages({
+  library(targets)
+  library(dplyr)
+  library(readr)
+  library(here)
+  library(DT)
+  library(scales)
+  library(lubridate)
+  library(plotly)
+})
+# Load all functions in the utilities folder
+# -------------------------------------------------------------------------
+source("pkg/R/source_folder.R")
+source_folder("pkg/R", recursive = TRUE)
+```
+
+# A&E (Type 1) 4-Hour Performance
+
+The four-hour A&E waiting time target is a pledge set out in the [Handbook to the NHS Constitution][nhs_const]. The operational standard is that at least 95% of patients attending A&E should be admitted, transferred or discharged within four hours.
+
+:::: panel-tabset
+
+## Time-Series
+
+```{r}
+#| warning: false
+data <- tar_read(ae_attendance_type1) %>%
+    mutate(performance = 1 - breaches/attendances)
+data <- add_date_time_col(data, period, month = TRUE)
+
+min_max <- data %>%
+  group_by(month) %>%
+  summarise(across(performance, list(min = min, max = max, average = mean)))
+
+data <- left_join(data, min_max, by = "month") %>%
+  arrange(period)
+
+ods_codes <- read.csv("https://nhsenglandfilestore.s3.amazonaws.com/ods/etrust.csv")
+ods_codes <- ods_codes[, c(1, 2)]
+colnames(ods_codes) <- c("org_code","org_name")
+ods_codes <- case_names(ods_codes, "org_code")
+
+report_df <- left_join(data, ods_codes, by = "org_code") %>%
+  arrange(period)
+```
+
+```{r}
+plotly_line_chart_minmax_dropdown(data = report_df,
+    x = "period",
+    y = "performance",
+    min = "performance_min",
+    max = "performance_max",
+    mean = "performance_average",
+    target = 0.95,
+    dropdown = "org_name",
+    plot_title = " ",
+    x_lab = "Month of attendance",
+    y_lab = "Met 4-hour standard",
+    y_min = 0, y_max = 1.09,
+    percent = TRUE) %>%
+    layout(annotations = text_annotate(x = "2016-06-01",
+                                       y = 0.99,
+                                       color = '#30BCAD',
+                                       text = "95% Target"))
+```
+
+::: {.callout-note}
+## Data source
+
+- [NHS England Statistical Work Areas][nhs_swa]
+- Available under the [Open Government Licence v3.0][ogl_v3]
+:::
+
+## Data Table
+
+```{r}
+df_table <- report_df %>%
+     mutate(breaches = format(round(breaches), nsmall = 0, big.mark=",")) %>%
+     mutate(attendances = format(round(attendances), nsmall = 0, big.mark=",")) %>%
+     mutate(admissions= format(round(admissions), nsmall = 0, big.mark=",")) %>%
+     mutate(performance_min = scales::percent(performance, accuracy = 1)) %>%
+     mutate(performance_max = scales::percent(performance, accuracy = 1)) %>%
+     mutate(performance_average = scales::percent(performance, accuracy = 1)) %>%
+     mutate(performance = scales::percent(performance, accuracy = 1)) %>%
+     select(period, org_code, org_name, performance, attendances, breaches)
+
+
+DT::datatable(df_table, 
+          extensions = 'Buttons',
+          rownames = FALSE,
+          options = list(dom = 'Brtip', pageLength = 10, autoWidth = TRUE,
+          buttons = c('copy', 'csv', 'pdf', 'print')
+          #lengthMenu = list(c(10,25,50,-1), c(10,25,50,"All")),
+          #columnDefs = list(list(visible=FALSE, targets=c(0, 3, 4)))
+          )) %>%
+          DT::formatStyle(columns = colnames(.$x$data), `font-size` = "14px")
+```
+
+## Metadata
+
+This report uses the `ae_attendances` dataset from the [{NHSRdatasets}](https://nhs-r-community.github.io/NHSRdatasets/) package, developed by the [NHS-R Community](https://nhsrcommunity.com/). The dataset contains all reported A&E attendances for the period April 2016 through March 2019.
+
+| Column | Description |
+|---|---|
+| `period` | The month that this activity relates to, stored as a date (1st of each month) |
+| `org_code` | The [ODS code][ods] for the organisation that this activity relates to |
+| `type` | The [Department Type][ae_types] for this activity, either 1, 2, or other |
+| `attendances` | The number of attendances for this department type at this organisation for this month |
+| `breaches` | The number of attendances that breached the 4 hour target |
+| `admissions` | The number of attendances that resulted in an admission to the hospital |
+
+### Department Types
+According to the [NHS Data Dictonary][ae_types] the type of Accident and Emergency Department is determined according to the activity performed as follows:
+
+| Type | Definition |
+|---|---|
+| `01` | Emergency departments are a Consulatant led 24 hour service with full resuscitation facilities and designated accommodation for the reception of accident and emergency Patients |
+| `02` | Consultant led mono specialty accident and emergency service (e.g. ophthalmology, dental) with designated accommodation for the reception of Patients  |
+| `03` | Other type of A&E/minor injury activity with designated accommodation for the reception of accident and emergency Patients. The department may be doctor led or NURSE led and treats at least minor injuries and illnesses and can be routinely accessed without appointment. A service mainly or entirely appointment based (for example a GP Practice or Out-Patient Clinic) is excluded even though it may treat a number of Patients with minor illness or injury. Excludes NHS walk-in centres |
+| `04` | NHS walk in centres |
+:::: 
+
+The length of time patients spend in A&E before admission, transfer or discharge depends on the type of A&E unit they visit. In the past, minor A&Es (types 2 and 3, such as single specialty departments or minor injury units) nearly always admit, transfer, or discharge in less than four hours, whereas major A&Es (type 1) deal with a higher number of attendees and more serious cases, and consistently perform worse at the four-hour target[^1].
+
+</br>
+
+[tj_email]: mailto:thomas.jemmett@nhs.net
+[su_web]:   https://www.strategyunitwm.nhs.uk/ 
+[nhs_swa]:  https://www.england.nhs.uk/statistics/statistical-work-areas/ae-waiting-times-and-activity/
+[ogl_v3]:   https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/
+[ods]:      https://digital.nhs.uk/services/organisation-data-service
+[ae_types]: https://web.archive.org/web/20200128111444/https://www.datadictionary.nhs.uk/data_dictionary/attributes/a/acc/accident_and_emergency_department_type_de.asp
+[nhs_const]: https://www.gov.uk/government/publications/supplements-to-the-nhs-constitution-for-england/the-handbook-to-the-nhs-constitution-for-england
+
+[^1]: [Nuffield Trust: A&E waiting times](https://www.nuffieldtrust.org.uk/resource/a-e-waiting-times)
