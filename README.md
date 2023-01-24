@@ -70,6 +70,11 @@ For details, please see our [virtual environments in the community of practice p
 ```
 rap-package-template
 │   README.md
+|
+├── data
+│   ├── interim        <- Intermediate data that has been transformed.
+│   ├── processed      <- The final, canonical data sets for reporting.
+│   └── raw            <- The original, immutable data dump.
 │
 ├───my_project
 |   |   _targets.R <!-- run from utilities? -->

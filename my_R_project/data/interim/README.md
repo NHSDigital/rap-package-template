@@ -1,4 +1,4 @@
-# Tidy
+# Interim Datasets
 
 This folder is for data validation, transforming datasets to tidy/long format, and/or appending raw data if the data source is using an incremental data load (i.e., updating the dataset where only new or modified records are ingested to raw).
 

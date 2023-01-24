@@ -1,4 +1,4 @@
-# Raw
+# Raw Datasets
 
 This folder is for ingesting raw data from APIs, databases, local files and so on.
 
