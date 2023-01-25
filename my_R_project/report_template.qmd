@@ -14,7 +14,7 @@ format:
     number-depth: 3
     # Render options
     theme: cosmo
-    css: styles.css
+    css: report_styles.css
     anchor-sections: false
     html-math-method: katex
     # Code options
@@ -25,7 +25,7 @@ format:
     # code-fold: false
     # code-summary: "Show code"
     embed-resources: true
-    standalone: true
+    #standalone: true
     # URL options
     link-external-icon: true
     link-external-newwindow: true
