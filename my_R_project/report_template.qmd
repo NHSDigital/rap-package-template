@@ -62,15 +62,12 @@ suppressPackageStartupMessages({
   library(lubridate)
   library(plotly)
 })
-# Load all functions in the utilities folder
-# -------------------------------------------------------------------------
-source("pkg/R/source_folder.R")
-source_folder("pkg/R", recursive = TRUE)
+source(here("utilities/plotly_line_chart_minmax_dropdown.R"))
 ```
 
 # A&E (Type 1) 4-Hour Performance
 
-The four-hour A&E waiting time target is a pledge set out in the [Handbook to the NHS Constitution][nhs_const]. The operational standard is that at least 95% of patients attending A&E should be admitted, transferred or discharged within four hours.
+The four-hour A&E waiting time target is a pledge set out in the [Handbook to the NHS Constitution][nhs_const]. The operational standard is that at least 95% of patients attending A&E should be admitted, transferred or discharged within four hours.
 
 :::: panel-tabset
 
@@ -78,28 +75,11 @@ The four-hour A&E waiting time target is a pledge set out in the [Handbook to t
 
 ```{r}
 #| warning: false
-data <- tar_read(ae_attendance_type1) %>%
-    mutate(performance = 1 - breaches/attendances)
-data <- add_date_time_col(data, period, month = TRUE)
-
-min_max <- data %>%
-  group_by(month) %>%
-  summarise(across(performance, list(min = min, max = max, average = mean)))
-
-data <- left_join(data, min_max, by = "month") %>%
-  arrange(period)
-
-ods_codes <- read.csv("https://nhsenglandfilestore.s3.amazonaws.com/ods/etrust.csv")
-ods_codes <- ods_codes[, c(1, 2)]
-colnames(ods_codes) <- c("org_code","org_name")
-ods_codes <- case_names(ods_codes, "org_code")
-
-report_df <- left_join(data, ods_codes, by = "org_code") %>%
-  arrange(period)
+data <- targets::tar_read(ae_attendance_type1_data)
 ```
 
 ```{r}
-plotly_line_chart_minmax_dropdown(data = report_df,
+plotly_line_chart_minmax_dropdown(data = data,
     x = "period",
     y = "performance",
     min = "performance_min",
@@ -128,7 +108,7 @@ plotly_line_chart_minmax_dropdown(data = report_df,
 ## Data Table
 
 ```{r}
-df_table <- report_df %>%
+df_table <- data %>%
      mutate(breaches = format(round(breaches), nsmall = 0, big.mark=",")) %>%
      mutate(attendances = format(round(attendances), nsmall = 0, big.mark=",")) %>%
      mutate(admissions= format(round(admissions), nsmall = 0, big.mark=",")) %>%

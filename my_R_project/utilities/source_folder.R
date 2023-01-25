@@ -23,5 +23,5 @@ source_folder <- function(folder, recursive = FALSE, ...) {
         stop(simpleError(sprintf('No R files in folder "%s"', folder)))
     src <- invisible(lapply(files, source, ...))
     message(sprintf('%s files sourced from folder "%s"', length(src), folder))
-    return(length(src))
+    return()
 }

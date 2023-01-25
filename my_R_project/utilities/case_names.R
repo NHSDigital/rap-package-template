@@ -32,6 +32,7 @@ case_names <- function(data, org_name) {
     mutate(org_name = str_replace(org_name, pattern = "And", replacement = "and")) %>%
     mutate(org_name = str_replace(org_name, pattern = "In", replacement = "in")) %>%
     mutate(org_name = str_replace(org_name, pattern = "On", replacement = "on")) %>%
+    mutate(org_name = str_replace(org_name, pattern = "Of", replacement = "of")) %>%
     mutate(org_name = str_replace(org_name, pattern = "With", replacement = "with")) %>%
     mutate(org_name = str_replace(org_name, pattern = "Nhs", replacement = "NHS")) %>%
     mutate(org_name = str_replace(org_name, pattern = "Sicbl", replacement = "SICBL")) %>%

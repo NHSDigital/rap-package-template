@@ -17,11 +17,10 @@
 library(targets)
 library(here)
 
-# Run the targets pipleline
+# Run the targets pipeline
 # -------------------------------------------------------------------------
 # Run the pipeline you defined in the targets script file.
 # default: _targets.R
-source("_targets.R")
 tar_make()
 
 # Prune targets
