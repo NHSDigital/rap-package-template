@@ -47,11 +47,16 @@ ae_attendance$interim <- targets::tar_target(
   command = f_ae_attendance_interim(ae_attendance_raw_data)
 )
 
-# define processed target
+# define processed targets
 ae_attendance$processed <- targets::tar_target(
   name = ae_attendance_type1_data,
   command = f_ae_attendance_type1(ae_attendance_interim_data,
                                       trust_ods_codes_interim_data)
+)
+
+ae_attendance$processed_table <- targets::tar_target(
+  name = ae_attendance_type1_table,
+  command = f_ae_attendance_type1_table(ae_attendance_type1_data)
 )
 
 # Ingest Trust ODS codes from NHSE file store
@@ -85,4 +90,5 @@ list(ae_attendance$raw,
      trust_ods_codes$raw,
      trust_ods_codes$interim,
      ae_attendance$processed,
+     ae_attendance$processed_table,
      render_ae_attendance_report)

@@ -5,7 +5,7 @@
 # license information.
 # -------------------------------------------------------------------------
 
-# FILE:           ae_attendance_processed.R
+# FILE:           ae_attendance_type1.R
 # DESCRIPTION:    ...
 # CONTRIBUTORS:   Craig R. Shenton
 # CONTACT:        craig.shenton@nhs.net

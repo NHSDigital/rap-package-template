@@ -108,16 +108,7 @@ plotly_line_chart_minmax_dropdown(data = data,
 ## Data Table
 
 ```{r}
-df_table <- data %>%
-     mutate(breaches = format(round(breaches), nsmall = 0, big.mark=",")) %>%
-     mutate(attendances = format(round(attendances), nsmall = 0, big.mark=",")) %>%
-     mutate(admissions= format(round(admissions), nsmall = 0, big.mark=",")) %>%
-     mutate(performance_min = scales::percent(performance, accuracy = 1)) %>%
-     mutate(performance_max = scales::percent(performance, accuracy = 1)) %>%
-     mutate(performance_average = scales::percent(performance, accuracy = 1)) %>%
-     mutate(performance = scales::percent(performance, accuracy = 1)) %>%
-     select(period, org_code, org_name, performance, attendances, breaches)
-
+df_table <- targets::tar_read(ae_attendance_type1_table)
 
 DT::datatable(df_table, 
           extensions = 'Buttons',
