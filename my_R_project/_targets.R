@@ -32,22 +32,23 @@ source_folder("pipeline", recursive = TRUE)
 # Ingest ae_attendance data from {NHSRdatasets} package
 # -------------------------------------------------------------------------
 # define parameters
+ae_attendance <- list()
 nhsr_dataset_name <- "ae_attendances"
 
 # define raw target
-ae_attendance_raw <- targets::tar_target(
+ae_attendance$raw <- targets::tar_target(
   name = ae_attendance_raw_data, # name of dataset
   command = f_ae_attendance_raw(nhsr_dataset_name) # pipeline function
   )
 
 # define interim target
-ae_attendance_interim <- targets::tar_target(
+ae_attendance$interim <- targets::tar_target(
   name = ae_attendance_interim_data,
   command = f_ae_attendance_interim(ae_attendance_raw_data)
 )
 
 # define processed target
-ae_attendance_processed <- targets::tar_target(
+ae_attendance$processed <- targets::tar_target(
   name = ae_attendance_type1_data,
   command = f_ae_attendance_type1(ae_attendance_interim_data,
                                       trust_ods_codes_interim_data)
@@ -56,16 +57,17 @@ ae_attendance_processed <- targets::tar_target(
 # Ingest Trust ODS codes from NHSE file store
 # -------------------------------------------------------------------------
 # define parameters
+trust_ods_codes <- list()
 file_url <- "https://nhsenglandfilestore.s3.amazonaws.com/ods/etrust.csv"
 
 # define target
-trust_ods_codes_raw <- targets::tar_target(
+trust_ods_codes$raw <- targets::tar_target(
   name = trust_ods_codes_raw_data,
   command = f_trust_ods_codes_raw(file_url)
   )
 
 # define interim target
-trust_ods_codes_interim <- targets::tar_target(
+trust_ods_codes$interim <- targets::tar_target(
   name = trust_ods_codes_interim_data,
   command = f_trust_ods_codes_interim(trust_ods_codes_raw_data)
 )
@@ -78,9 +80,9 @@ render_ae_attendance_report <- tarchetypes::tar_quarto(report, "report_template.
 
 # Start target list
 # -------------------------------------------------------------------------
-list(ae_attendance_raw,
-     ae_attendance_interim,
-     trust_ods_codes_raw,
-     trust_ods_codes_interim,
-     ae_attendance_processed,
+list(ae_attendance$raw,
+     ae_attendance$interim,
+     trust_ods_codes$raw,
+     trust_ods_codes$interim,
+     ae_attendance$processed,
      render_ae_attendance_report)

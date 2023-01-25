@@ -1,7 +1,8 @@
 name|type|data|command|depend|seed|path|time|size|bytes|format|repository|iteration|parent|children|seconds|warnings|error
-.Random.seed|object|6f035a52b3c401bc|||||||||||||||
+.Random.seed|object|38415db438fc6a92|||||||||||||||
+ae_attendance|object|7827db5867c486f1|||||||||||||||
 ae_attendance_interim_data|stem|6fea8321dead7068|19623c5f714235a1|d42a01663f1a4aa2|-826769879||t19382.470320246s|aeb9e822999ebdfa|90108|rds|local|vector|||0||
-ae_attendance_raw_data|stem|6fea8321dead7068|4d3238a5e9ef1528|9fb55b2766c5585d|-1096906037||t19382.6018710673s|aeb9e822999ebdfa|90108|rds|local|vector|||0.67||
+ae_attendance_raw_data|stem|6fea8321dead7068|4d3238a5e9ef1528|9fb55b2766c5585d|-1096906037||t19382.6213038848s|aeb9e822999ebdfa|90108|rds|local|vector|||0.16||
 ae_attendance_type1_data|stem|883c5227114259a0|ab4442bd097fbbb8|27165204f2ab6bd9|-1221549540||t19382.6041607164s|3d8466117d5b2a04|86310|rds|local|vector|||0.39||
 f_ae_attendance_interim|function|2c5f2cc35524d56d|||||||||||||||
 f_ae_attendance_raw|function|a78cdce818d65fcb|||||||||||||||
@@ -11,8 +12,9 @@ f_trust_ods_codes_interim|function|79b0d5f3e39b5d80|||||||||||||||
 f_trust_ods_codes_raw|function|21bf9b2099bf5df2|||||||||||||||
 file_url|object|443f949d6f3eff4e|||||||||||||||
 nhsr_dataset_name|object|b1fc881f67b89b9a|||||||||||||||
-report|stem|ed1595473bb5fef3|806c6acc0f5f9771|df236e65fc47199d|-237041703|report_template.html*report_template_files*report_template.qmd|t19382.6053557572s|b090e2d3b0a61943|10678127|file|local|vector|||13.82||
+report|stem|dad62702f9a9ee61|806c6acc0f5f9771|df236e65fc47199d|-237041703|report_template.html*report_template_files*report_template.qmd|t19382.6210303251s|5dbcbe60ab649390|2589904|file|local|vector|||14.73||
 source_folder|function|cf55e2a3279d8209|||||||||||||||
+trust_ods_codes|object|444dffe04bd23cc7|||||||||||||||
 trust_ods_codes_data|stem||7b9642edabd76b14|bef76fd45b48244e|986256487||t19382.4690058436s||0|rds|local|vector|||0.17||object trust_ods_codes_data not found
 trust_ods_codes_interim|function|37942fca626d00be|||||||||||||||
 trust_ods_codes_interim_data|stem|f0141217ad8d1e9e|53bed09b2fd7f36c|a737f80c54b7ed8b|-633587944||t19382.6018785522s|a0bb493b56f37261|299255|rds|local|vector|||0.4||
