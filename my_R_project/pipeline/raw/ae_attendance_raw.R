@@ -15,15 +15,15 @@
 # Define {targets} function
 # -------------------------------------------------------------------------
 f_ae_attendance_raw <- function(dataset_name) {
-  
+
   # Load packages and utilities
   source("utilities/get_nhsr_dataset.R")
-  
+
   # Define input dataset(s)
   input_df <- get_nhsr_dataset(dataset_name=dataset_name)
-  
+
   # Define Transform
   output_df <- input_df
-  
+
   return(output_df)
 }

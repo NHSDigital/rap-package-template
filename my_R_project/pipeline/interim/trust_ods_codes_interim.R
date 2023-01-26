@@ -15,14 +15,14 @@
 # Define {targets} function
 # -------------------------------------------------------------------------
 f_trust_ods_codes_interim <- function(input_df) {
-  
+
   # Load packages and utilities
   source("utilities/case_names.R")
-  
+
   # Define Transform
   input_df <- input_df[, c(1, 2)] # select ods codes and trust names
-  colnames(input_df) <- c("org_code","org_name") # set col names
+  colnames(input_df) <- c("org_code", "org_name") # set col names
   output_df <- case_names(input_df, "org_code") # set Capital case
-  
+
   return(output_df)
 }
