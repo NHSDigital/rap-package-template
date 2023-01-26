@@ -1,5 +1,21 @@
 
-# This test function tests the format_columns function with three different formatting options: "percent", "comma", and "dollar". For each test, it compares the expected output to the actual output using the expect_equal() function.
+# R notebook source
+# -------------------------------------------------------------------------
+# Copyright (c) 2022 Craig Robert Shenton. All rights reserved.
+# Licensed under the MIT License. See license.txt in the project root for
+# license information.
+# -------------------------------------------------------------------------
+
+# FILE:           test_dplyr_format_num.R
+# DESCRIPTION:    This test function tests the format_columns function with
+#                 three different formatting options: "percent", "comma", and
+#                 "dollar". For each test, it compares the expected output to
+#                 the actual output using the expect_equal() function.
+
+# CONTRIBUTORS:   Craig R. Shenton
+# CONTACT:        craig.shenton@nhs.net
+# CREATED:        21 Dec 2022
+# VERSION:        0.0.2
 
 # Define the unit test
 # -------------------------------------------------------------------------

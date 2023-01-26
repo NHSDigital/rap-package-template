@@ -15,7 +15,6 @@
 # CREATED:        20 Dec 2022
 # VERSION:        0.0.1
 
-
 # Define the unit test
 # -------------------------------------------------------------------------
 test_that("source_folder() with a valid folder", {
