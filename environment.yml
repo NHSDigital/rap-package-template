@@ -4,10 +4,9 @@ channels:
   - default
   - conda-forge
 dependencies:
-  - python=3.9
+  - python=3.10.5
   - pip
   - pandas=1.4.4
-  - pathlib2=2.3.7
-  - pyodbc=4.0.32
-  - sqlalchemy=1.4.36
+  - pyodbc=4.0.35
+  - sqlalchemy=1.4.46
   - toml=0.10.2
