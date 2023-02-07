@@ -1,19 +1,13 @@
-#A template of the conda environment
-#The template contains commonly used packages
-#For details: https://github.com/NHSDigital/rap-community-of-practice/blob/main/python/virtual-environments.md
-name: rap
-
+# The libraries used by your code should be listed here
+name: rap_template # your project name (no spaces!)
 channels:
-  - defaults
-
+  - default
+  - conda-forge
 dependencies:
-  - flake8=3.9.0
-  - openpyxl
-  - pip==20.2.4
   - python=3.9
-  - pyodbc
-  - ipykernel
-  - ipython
-  - nbconvert==6.0.7
-  - numpy==1.19.5
-  - pandas
+  - pip
+  - pandas=1.4.4
+  - pathlib2=2.3.7
+  - pyodbc=4.0.32
+  - sqlalchemy=1.4.36
+  - toml=0.10.2

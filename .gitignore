@@ -1,13 +1,18 @@
-
-
-
 ####################################################################
 # GENERIC GITIGNORE FILE FOR PYTHON 
-# Copied from https://github.com/github/gitignore/blob/master/Python.gitignore
-# This is a useful thing to just copy and paste since it should work for most use cases. 
-# If you have additional things to exclude from the .gitignore file you should add it above
-# this section.
+# Adapted from https://github.com/github/gitignore/blob/master/Python.gitignore
+# The below should be useful for most Python projects. 
+# Add any additional things to exclude.
 #####################################################################
+# Avoid committing any data. If you need to make an exception for one file you can do that separately
+*.csv
+*.ipynb
+*.ipynb_checkpoints
+*.xlsx
+*.xls
+
+# Exceptions- use ! to include files that would otherwise be ignored
+!publication_template.xlsx
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
@@ -147,3 +152,6 @@ dmypy.json
 
 # Cython debug symbols
 cython_debug/
+
+# VS Code project files
+.vscode/

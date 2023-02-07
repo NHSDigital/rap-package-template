@@ -1,0 +1,15 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "rap-package-template"
+version = "1.0.0"
+authors = [
+    { name="Data Science Skilled team", email="datascience@nhs.net" }
+]
+readme = "README.md"
+requires-python = ">=3.9"
+
+[project.urls]
+"Homepage" = "https://nhsdigital.github.io/rap-community-of-practice/"
