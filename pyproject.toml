@@ -9,7 +9,7 @@ authors = [
     { name="Data Science Skilled team", email="datascience@nhs.net" }
 ]
 readme = "README.md"
-requires-python = ">=3.9"
+requires-python = ">=3.10"
 
 [project.urls]
 "Homepage" = "https://nhsdigital.github.io/rap-community-of-practice/"
