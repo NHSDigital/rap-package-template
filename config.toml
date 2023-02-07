@@ -1,0 +1,20 @@
+project_name = "Example-Publication"
+
+server = ''                   
+database = ''          
+schema = ''
+table = ''  
+# The above variables reference an example location in SQL Server, they will need to be changed for your project
+# If you are using Databricks instead of SQL Server you will not need to set the 'server' variable
+# Your project may use more than 1 table, you should add more table names and assignments as needed
+
+# Include any other configuration parameters, e.g. dates
+start_date = "1970-01-01"
+end_date = "2022-01-01"
+
+# Fill missing value for specific column
+filled_value = 2022
+
+# Here we describe where the output and logs are saved, change as necessary
+output_dir = ''
+log_dir = '' 
