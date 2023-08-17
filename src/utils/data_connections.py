@@ -33,13 +33,36 @@ def read_sql_file(sql_file_path: str, sql_file_name: str, database, schema, tabl
 
     return new_sql_query
 
-def make_database_connection(server, database):
+
+def make_database_connection(server, database,autocommit=True):
     """Creates SQL Server connection.
     """
     conn = sa.create_engine(f"mssql+pyodbc://{server}/{database}?driver=SQL+Server&trusted_connection=yes", 
                                 fast_executemany=True)
-    
+    conn.execution_options(autocommit=autocommit)
     return conn
+
+
+def execute_sql(query, conn):
+    """
+    Use sqlalchemy to connect to the SQL server and database with the help
+    of mssql and pyodbc packages to execute a SQL query
+
+    Inputs:
+        query: string containing a sql query
+        conn: SQLAlchemy engine connection to the SQL database - defaults to WPRI_GP_LIVE database unless specified
+
+    Output:
+        response: whatever is returned by SQL alchemy, which can be rows of data, or nothing, if the query didn't 
+                  return anything
+    """
+    with conn.connect() as connection:
+        logger.info("Executing submitted SQL statetment")
+        response = connection.execute(sa.text(query))
+        logger.info("Successfully executed submitted SQL statetment")
+
+    return response
+
 
 def get_df_from_server(conn, server, database, query) -> pd.DataFrame:
     """Constructs a pandas DataFrame from running a SQL query on a given SQL server using SQL Alchemy .
