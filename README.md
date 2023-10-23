@@ -13,8 +13,8 @@ _A **repository** is something that contains all of your project's files and and
 > Include a link to where your publication is published.
 
 ## Contact
-**This repository is maintained by [NHS England Data Science Team](datascience@nhs.net)**.
-> _To contact us raise an issue on Github or via email._
+**This repository is maintained by NHS England Data Science Team**.
+> _To contact us raise an issue on Github or via [email](mailto:england.rapchampions@nhs.net)._
 > 
 > See our (and our colleagues') other work here: [NHS England Analytical Services](https://github.com/NHSDigital/data-analytics-services)
 
