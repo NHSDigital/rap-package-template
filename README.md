@@ -1,6 +1,7 @@
 # RAP repository template
 
-:exclamation: Warning: this repository may contain references internal to NHS England that cannot be accessed publicly
+> [!WARNING]
+> This repository may contain references internal to NHS England that cannot be accessed publicly
 
 > Describe your project in 1-3 sentences.
 
@@ -15,7 +16,7 @@ _A **repository** is something that contains all of your project's files and and
 ## Contact
 **This repository is maintained by NHS England Data Science Team**.
 > _To contact us raise an issue on Github or via [email](mailto:england.rapchampions@nhs.net)._
-> 
+>
 > See our (and our colleagues') other work here: [NHS England Analytical Services](https://github.com/NHSDigital/data-analytics-services)
 
 ## Description
@@ -73,12 +74,12 @@ python examples/example_create_publication.py
 |   .gitignore                        <- Files (& file types) automatically removed from version control for security purposes
 |   config.toml                       <- Configuration file with parameters we want to be able to change (e.g. date)
 |   environment.yml                   <- Conda equivalent of requirements file
-|   requirements.txt                  <- Requirements for reproducing the analysis environment 
+|   requirements.txt                  <- Requirements for reproducing the analysis environment
 |   pyproject.toml                    <- Configuration file containing package build information
 |   LICENCE                           <- License info for public distribution
 |   README.md                         <- Quick start guide / explanation of your project
 |
-|   create_publication.py             <- Runs the overall pipeline to produce the publication     
+|   create_publication.py             <- Runs the overall pipeline to produce the publication
 |
 +---src                               <- Scripts with functions for use in 'create_publication.py'. Contains project's codebase.
 |   |       __init__.py               <- Makes the functions folder an importable Python module
@@ -88,12 +89,12 @@ python examples/example_create_publication.py
 |   |       file_paths.py             <- Configures file paths for the package
 |   |       logging_config.py         <- Configures logging
 |   |       data_connections.py       <- Handles data connections i.e. reading/writing dataframes from SQL Server
-|   | 
+|   |
 |   +---processing                    <- Scripts with modules containing functions to process data i.e. clean and derive new fields
 |   |       __init__.py               <- Makes the functions folder an importable Python module
-|   |       clean.py                  <- Perform cleaning and wrangling processes 
+|   |       clean.py                  <- Perform cleaning and wrangling processes
 |   |       derive_fields.py          <- Create new field definitions, columns, derivations.
-|   | 
+|   |
 |   +---data_ingestion                <- Scripts with modules containing functions to preprocess read data i.e. perform validation/data quality checks, other preprocessing etc.
 |   |       __init__.py               <- Makes the functions folder an importable Python module
 |   |       preprocessing.py          <- Perform preprocessing, for example preparing your data for metadata or data quality checks.
@@ -103,7 +104,7 @@ python examples/example_create_publication.py
 |   |       __init__.py               <- Makes the functions folder an importable Python module
 |   |       write_excel.py            <- Populates an excel .xlsx template with values from your CSV output.
 |   |
-+---sql                               <- SQL scripts for importing data  
++---sql                               <- SQL scripts for importing data
 |       example.sql
 |
 +---templates                         <- Templates for output files
@@ -162,7 +163,7 @@ There are several workaround to use this template for your project on GitLab. On
 
 3. Delete the `.git` file (this removes the existing file revision history)
 
-        rmdir /s .git 
+        rmdir /s .git
 
 4. Initialise git (this starts tracking file revision history)
 
